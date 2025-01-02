@@ -61,8 +61,12 @@
         const sound = document.getElementById("sound");
         const backgroundMusic = document.getElementById("backgroundMusic");
 
-        // Iniciar la música de fondo en bucle
-        backgroundMusic.play();
+        // Reproducir la música al cargar la página
+        document.addEventListener("DOMContentLoaded", () => {
+            backgroundMusic.play().catch((error) => {
+                console.error("Error al reproducir la música de fondo:", error);
+            });
+        });
 
         function updateCountdown() {
             const now = new Date();
