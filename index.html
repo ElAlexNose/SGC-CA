@@ -49,15 +49,20 @@
     </div>
 
     <audio id="sound" src="sounds/sg1.ogg"></audio>
+    <audio id="backgroundMusic" src="sounds/sg2.ogg" loop></audio>
 
     <script>
         // Fecha de destino: 03/01/2025 a las 18:00 hora de España
         const targetDate = new Date("2025-01-03T18:00:00");
 
-        // Actualizar cada segundo
+        // Elementos del DOM
         const countdownElement = document.getElementById("timer");
         const eventMessage = document.getElementById("eventMessage");
         const sound = document.getElementById("sound");
+        const backgroundMusic = document.getElementById("backgroundMusic");
+
+        // Iniciar la música de fondo en bucle
+        backgroundMusic.play();
 
         function updateCountdown() {
             const now = new Date();
@@ -67,6 +72,7 @@
                 eventMessage.innerHTML = "¡El evento ha comenzado!"; // Mensaje de evento
                 countdownElement.innerHTML = "00:00:00"; // Detener el contador
                 clearInterval(countdownInterval);
+                backgroundMusic.pause(); // Detener la música de fondo
                 return;
             }
 
@@ -75,6 +81,11 @@
             const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000); // Segundos
 
             countdownElement.innerHTML = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+
+            // Verificar si llega a 1:50
+            if (minutes === 1 && seconds === 50) {
+                backgroundMusic.pause(); // Pausar la música de fondo
+            }
 
             // Verificar si llega a 1:48
             if (minutes === 1 && seconds === 48) {
@@ -91,4 +102,5 @@
     </script>
 </body>
 </html>
+
 
