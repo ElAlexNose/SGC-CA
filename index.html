@@ -4,43 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuenta Atrás Juego del Calamar</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #222;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .event-message {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: red;
-            position: absolute;
-            top: 20px;
-        }
-
-        .countdown {
-            font-size: 40px;
-            font-weight: bold;
-            border: 3px solid red;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: black;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-        }
-
-        .countdown span {
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="event-message" id="eventMessage">Próximo evento: Squid Gaming Crafting</div>
@@ -49,62 +13,8 @@
     </div>
 
     <audio id="sound" src="sounds/sg1.ogg"></audio>
-    <audio id="backgroundMusic" src="sounds/sg2.ogg" loop></audio>
+    <audio id="backgroundMusic" src="sounds/s2.ogg" loop></audio>
 
-    <script>
-        // Fecha de destino: 03/01/2025 a las 18:00 hora de España
-        const targetDate = new Date("2025-01-03T16:00:00");
-
-        // Elementos del DOM
-        const countdownElement = document.getElementById("timer");
-        const eventMessage = document.getElementById("eventMessage");
-        const sound = document.getElementById("sound");
-        const backgroundMusic = document.getElementById("backgroundMusic");
-
-        // Reproducir la música al cargar la página
-        document.addEventListener("DOMContentLoaded", () => {
-            backgroundMusic.play().catch((error) => {
-                console.error("Error al reproducir la música de fondo:", error);
-            });
-        });
-
-        function updateCountdown() {
-            const now = new Date();
-            const remainingTime = targetDate - now;
-
-            if (remainingTime <= 0) {
-                eventMessage.innerHTML = "¡El evento ha comenzado!"; // Mensaje de evento
-                countdownElement.innerHTML = "00:00:00"; // Detener el contador
-                clearInterval(countdownInterval);
-                backgroundMusic.pause(); // Detener la música de fondo
-                return;
-            }
-
-            const hours = Math.floor(remainingTime / (1000 * 60 * 60)); // Horas
-            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60)); // Minutos
-            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000); // Segundos
-
-            countdownElement.innerHTML = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
-
-            // Verificar si llega a 1:50
-            if (minutes === 1 && seconds === 50) {
-                backgroundMusic.pause(); // Pausar la música de fondo
-            }
-
-            // Verificar si llega a 1:48
-            if (minutes === 1 && seconds === 48) {
-                sound.play(); // Reproducir el sonido
-            }
-        }
-
-        function formatTime(time) {
-            return time < 10 ? `0${time}` : time;
-        }
-
-        // Actualizar cada segundo
-        const countdownInterval = setInterval(updateCountdown, 1000);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
