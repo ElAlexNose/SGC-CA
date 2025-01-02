@@ -51,9 +51,8 @@
     <audio id="sound" src="sounds/sg1.ogg"></audio>
 
     <script>
-        // Fecha de destino: 18:00 hora de España
-        const targetDate = new Date();
-        targetDate.setHours(18, 0, 0, 0); // Ajustado a las 18:00
+        // Fecha de destino: 03/01/2025 a las 18:00 hora de España
+        const targetDate = new Date("2025-01-03T18:00:00");
 
         // Actualizar cada segundo
         const countdownElement = document.getElementById("timer");
@@ -65,8 +64,8 @@
             const remainingTime = targetDate - now;
 
             if (remainingTime <= 0) {
-                eventMessage.innerHTML = "Próximo evento: Squid Gaming Crafting"; // Mensaje de evento
-                countdownElement.innerHTML = "FECHA AUN NO DEFINIDA"; // Mensaje en el contador
+                eventMessage.innerHTML = "¡El evento ha comenzado!"; // Mensaje de evento
+                countdownElement.innerHTML = "00:00:00"; // Detener el contador
                 clearInterval(countdownInterval);
                 return;
             }
@@ -92,3 +91,4 @@
     </script>
 </body>
 </html>
+
