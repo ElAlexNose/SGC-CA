@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Atrás Juego del Calamar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #222;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .event-message {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: red;
+            position: absolute;
+            top: 20px;
+        }
+
+        .countdown {
+            font-size: 40px;
+            font-weight: bold;
+            border: 3px solid red;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: black;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        .countdown span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="event-message" id="eventMessage">Próximo evento: Squid Gaming Crafting</div>
+    <div class="countdown">
+        <div id="timer">00:00:00</div>
+    </div>
+
+    <audio id="sound" src="sounds/sg1.ogg"></audio>
+
+    <script>
+        // Fecha de destino: 18:00 hora de España
+        const targetDate = new Date();
+        targetDate.setHours(18, 0, 0, 0); // Ajustado a las 18:00
+
+        // Actualizar cada segundo
+        const countdownElement = document.getElementById("timer");
+        const eventMessage = document.getElementById("eventMessage");
+        const sound = document.getElementById("sound");
+
+        function updateCountdown() {
+            const now = new Date();
+            const remainingTime = targetDate - now;
+
+            if (remainingTime <= 0) {
+                eventMessage.innerHTML = "Próximo evento: Squid Gaming Crafting"; // Mensaje de evento
+                countdownElement.innerHTML = "FECHA AUN NO DEFINIDA"; // Mensaje en el contador
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            const hours = Math.floor(remainingTime / (1000 * 60 * 60)); // Horas
+            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60)); // Minutos
+            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000); // Segundos
+
+            countdownElement.innerHTML = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+
+            // Verificar si llega a 1:48
+            if (minutes === 1 && seconds === 48) {
+                sound.play(); // Reproducir el sonido
+            }
+        }
+
+        function formatTime(time) {
+            return time < 10 ? `0${time}` : time;
+        }
+
+        // Actualizar cada segundo
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
